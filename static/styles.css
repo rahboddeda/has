@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+h1 {
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+canvas {
+    border: 2px solid #ccc;
+    background-color: #fff;
+}
+
+.points-container {
+    margin-top: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 5px 0;
+}
+
+#point-coordinates {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #444;
+}
+
+.distance-container {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
+.distance-container label {
+    margin-right: 5px;
+}
+
+.distance-container select {
+    margin-right: 10px;
+}
+
+#distance-result {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #444;
+}

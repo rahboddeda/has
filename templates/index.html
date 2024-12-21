@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Smiles Image Processor</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Smiles</h1>
+        <input type="file" id="image-input" accept="image/*">
+        <button id="process-button">Process Image</button>
+
+        <div class="image-container">
+            <!-- <canvas id="original-canvas"></canvas> -->
+            <canvas id="processed-canvas"></canvas>
+        </div>
+        <div>
+            <button id="add-point-button">Add Point</button>
+            <button id="delete-point-button">Delete Point</button>
+            <button id="undo-button">Undo</button>
+            <button id="download-points-button">Download Points</button>
+        </div>
+        <div class="points-container">
+            <h2>Points</h2>
+            <ul id="points-list"></ul>
+            <div id="point-coordinates"></div>
+        </div>
+    </div>
+
+    <div class="distance-container">
+        <label for="point1">Point 1:</label>
+        <select id="point1"></select>
+
+        <label for="point2">Point 2:</label>
+        <select id="point2"></select>
+
+        <button id="calculate-distance-button">Calculate Distance</button>
+
+        <div id="distance-result">Horizontal Distance: -</div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

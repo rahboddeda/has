@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Image Processor</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- CSS Styling -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .upload-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .upload-container h2 {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .upload-container input[type="file"] {
+            display: none;
+        }
+
+        .upload-container label {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-container label:hover {
+            background-color: #0056b3;
+        }
+
+        .output-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .output-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-buttons button:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #555;
+        }
+
+        footer a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Professional Image Processor</h1>
+    </header>
+    <main>
+        <div class="upload-container">
+            <h2>Upload Your Image</h2>
+            <form id="upload-form" enctype="multipart/form-data">
+                <label for="image-input">Choose Image</label>
+                <input type="file" id="image-input" name="image" accept="image/*">
+                <button type="submit" style="display: none;">Upload</button>
+            </form>
+            <div id="processing-message" style="display: none; color: #007BFF; font-weight: 500;">Processing your image...</div>
+        </div>
+        <div class="output-container" id="output-container">
+            <!-- Processed image will appear here -->
+        </div>
+    </main>
+    <footer>
+        <p>Developed with ❤️ by Your Team. <a href="#">Learn more</a></p>
+    </footer>
+
+    <script>
+        const uploadForm = document.getElementById('upload-form');
+        const imageInput = document.getElementById('image-input');
+        const outputContainer = document.getElementById('output-container');
+        const processingMessage = document.getElementById('processing-message');
+
+        uploadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const file = imageInput.files[0];
+
+            if (!file) {
+                alert('Please select an image file to upload.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            processingMessage.style.display = 'block';
+            outputContainer.innerHTML = '';
+
+            fetch('/process', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    processingMessage.style.display = 'none';
+                    if (data.success) {
+                        const img = document.createElement('img');
+                        img.src = data.processed_image_url;
+                        img.alt = 'Processed Image';
+                        outputContainer.appendChild(img);
+                    } else {
+                        alert('Error processing image: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    processingMessage.style.display = 'none';
+                    alert('An error occurred: ' + error.message);
+                });
+        });
+    </script>
+</body>
+</html>
